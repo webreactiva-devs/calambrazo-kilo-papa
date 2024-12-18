@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotito Mentiroso</title>
+    <!-- Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Canvas Confetti library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-100 to-blue-200">
+    <div class="bg-white shadow-lg rounded-lg p-8 text-center max-w-md w-full">
+        <h1 class="text-2xl font-bold mb-6 text-gray-800">Robotito Mentiroso</h1>
+        
+        <div id="question" class="text-lg mb-6 text-gray-700">
+            El planeta Marte es completamente verde.
+        </div>
+        
+        <div id="button-container" class="flex justify-center space-x-4">
+            <button 
+                id="true-btn" 
+                class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition flex items-center"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 6 9 17l-5-5"/>
+                </svg>
+                Verdadero
+            </button>
+            <button 
+                id="false-btn" 
+                class="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 transition flex items-center"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+                Falso
+            </button>
+        </div>
+        
+        <div 
+            id="result" 
+            class="mt-6 text-xl font-semibold h-10"
+        ></div>
+        
+        <button 
+            id="restart-btn" 
+            class="mt-4 bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition hidden"
+        >
+            Jugar de Nuevo
+        </button>
+    </div>
+
+    <script>
+        // Game configuration
+        const question = "El planeta Marte es completamente verde.";
+        const correctAnswer = false;
+
+        // DOM Elements
+        const trueBtn = document.getElementById('true-btn');
+        const falseBtn = document.getElementById('false-btn');
+        const resultEl = document.getElementById('result');
+        const restartBtn = document.getElementById('restart-btn');
+        const buttonContainer = document.getElementById('button-container');
+
+        function checkAnswer(userAnswer) {
+            // Disable buttons after answer
+            trueBtn.disabled = true;
+            falseBtn.disabled = true;
+
+            if (userAnswer === correctAnswer) {
+                // Correct answer
+                resultEl.textContent = '¡Correcto! 🎉';
+                resultEl.classList.remove('text-red-600');
+                resultEl.classList.add('text-green-600');
+                
+                // Launch confetti
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#10b981', '#34d399', '#6ee7b7']
+                });
+            } else {
+                // Incorrect answer
+                resultEl.textContent = '¡Ups! Respuesta incorrecta 😢';
+                resultEl.classList.remove('text-green-600');
+                resultEl.classList.add('text-red-600');
+            }
+
+            // Show restart button
+            restartBtn.classList.remove('hidden');
+            buttonContainer.classList.add('hidden');
+        }
+
+        function resetGame() {
+            resultEl.textContent = '';
+            resultEl.classList.remove('text-green-600', 'text-red-600');
+            trueBtn.disabled = false;
+            falseBtn.disabled = false;
+            restartBtn.classList.add('hidden');
+            buttonContainer.classList.remove('hidden');
+        }
+
+        // Event Listeners
+        trueBtn.addEventListener('click', () => checkAnswer(true));
+        falseBtn.addEventListener('click', () => checkAnswer(false));
+        restartBtn.addEventListener('click', resetGame);
+    </script>
+</body>
+</html>
