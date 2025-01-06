@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "question": "El caballo blanco de Santiago es blanco",
+    "answer": true
+  },
+  {
+    "id": 2,
+    "question": "La capital de Francia es Normandía",
+    "answer": false
+  },
+  {
+    "id": 3,
+    "question": "El planeta más cercano al Sol es Plutón",
+    "answer": false
+  },
+  {
+    "id": 4,
+    "question": "",
+    "answer": ""
+  },
+  {
+    "id": 5,
+    "question": "",
+    "answer": ""
+  }
+]
