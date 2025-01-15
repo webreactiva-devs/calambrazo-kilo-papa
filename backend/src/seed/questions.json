@@ -16,12 +16,12 @@
   },
   {
     "id": 4,
-    "question": "",
-    "answer": ""
+    "question": "Siri es para Linux lo que Alexa para Apple",
+    "answer": false
   },
   {
     "id": 5,
-    "question": "",
-    "answer": ""
+    "question": "Sennheiser y Bose son marcas favoritas de Marta",
+    "answer": true
   }
 ]
