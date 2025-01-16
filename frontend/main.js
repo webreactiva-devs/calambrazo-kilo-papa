@@ -1,84 +1,88 @@
-// Game logic
-const question = 'El planeta Marte es completamente verde.';
-const correctAnswer = false;
+import { initApp } from './App.js';
 
-const questionEl = document.getElementById('question');
-const trueBtn = document.getElementById('true-btn');
-const falseBtn = document.getElementById('false-btn');
-const resultEl = document.getElementById('result');
-const restartBtn = document.getElementById('restart-btn');
-const buttonContainer = document.getElementById('button-container');
-const confettiContainer = document.getElementById('confetti-container');
+document.addEventListener('DOMContentLoaded', initApp);
 
-function checkAnswer(userAnswer) {
-  // Disable buttons after answer
-  trueBtn.disabled = true;
-  falseBtn.disabled = true;
+// // Game logic
+// const question = 'El planeta Marte es completamente verde.';
+// const correctAnswer = false;
 
-  if (userAnswer === correctAnswer) {
-    // Correct answer
-    resultEl.textContent = '¡Correcto! 🎉';
-    resultEl.style.color = 'green';
-    createConfetti();
-  } else {
-    // Incorrect answer
-    resultEl.textContent = '¡Ups! Respuesta incorrecta 😢';
-    resultEl.style.color = 'red';
-  }
+// const questionEl = document.getElementById('question');
+// const trueBtn = document.getElementById('true-btn');
+// const falseBtn = document.getElementById('false-btn');
+// const resultEl = document.getElementById('result');
+// const restartBtn = document.getElementById('restart-btn');
+// const buttonContainer = document.getElementById('button-container');
+// const confettiContainer = document.getElementById('confetti-container');
 
-  // Show restart button
-  restartBtn.style.display = 'block';
-  buttonContainer.style.display = 'none';
-}
+// function checkAnswer(userAnswer) {
+//   // Disable buttons after answer
+//   trueBtn.disabled = true;
+//   falseBtn.disabled = true;
 
-function createConfetti() {
-  const colors = ['#f87171', '#facc15', '#4ade80', '#38bdf8', '#a78bfa'];
-  for (let i = 0; i < 100; i++) {
-    const confetti = document.createElement('div');
-    confetti.classList.add('confetti');
+//   if (userAnswer === correctAnswer) {
+//     // Correct answer
+//     resultEl.textContent = '¡Correcto! 🎉';
+//     resultEl.style.color = 'green';
+//     createConfetti();
+//   } else {
+//     // Incorrect answer
+//     resultEl.textContent = '¡Ups! Respuesta incorrecta 😢';
+//     resultEl.style.color = 'red';
+//   }
 
-    // Random position, color, and fall animation
-    confetti.style.left = `${Math.random() * 100}%`;
-    confetti.style.backgroundColor =
-      colors[Math.floor(Math.random() * colors.length)];
-    confetti.style.borderColor =
-      colors[Math.floor(Math.random() * colors.length)];
+//   // Show restart button
+//   restartBtn.style.display = 'block';
+//   buttonContainer.style.display = 'none';
+// }
 
-    // Random fall animation
-    const duration = Math.random() * 3 + 2;
-    const delay = Math.random() * 2;
-    confetti.style.animation = `fall ${duration}s ${delay}s linear forwards`;
+// function createConfetti() {
+//   const colors = ['#f87171', '#facc15', '#4ade80', '#38bdf8', '#a78bfa'];
+//   for (let i = 0; i < 100; i++) {
+//     const confetti = document.createElement('div');
+//     confetti.classList.add('confetti');
 
-    confettiContainer.appendChild(confetti);
-  }
+//     // Random position, color, and fall animation
+//     confetti.style.left = `${Math.random() * 100}%`;
+//     confetti.style.backgroundColor =
+//       colors[Math.floor(Math.random() * colors.length)];
+//     confetti.style.borderColor =
+//       colors[Math.floor(Math.random() * colors.length)];
 
-  // Remove confetti after animation
-  setTimeout(() => {
-    confettiContainer.innerHTML = '';
-  }, 5000);
-}
+//     // Random fall animation
+//     const duration = Math.random() * 3 + 2;
+//     const delay = Math.random() * 2;
+//     confetti.style.animation = `fall ${duration}s ${delay}s linear forwards`;
 
-function resetGame() {
-  resultEl.textContent = '';
-  trueBtn.disabled = false;
-  falseBtn.disabled = false;
-  restartBtn.style.display = 'none';
-  buttonContainer.style.display = 'flex';
-}
+//     confettiContainer.appendChild(confetti);
+//   }
 
-// Event Listeners
-trueBtn.addEventListener('click', () => checkAnswer(true));
-falseBtn.addEventListener('click', () => checkAnswer(false));
-restartBtn.addEventListener('click', resetGame);
+//   // Remove confetti after animation
+//   setTimeout(() => {
+//     confettiContainer.innerHTML = '';
+//   }, 5000);
+// }
 
-// Add custom CSS animation for confetti
-const style = document.createElement('style');
-style.textContent = `
-      @keyframes fall {
-          to {
-              transform: translateY(100vh) rotate(360deg);
-              opacity: 0;
-          }
-      }
-  `;
-document.head.appendChild(style);
+// function resetGame() {
+//   resultEl.textContent = '';
+//   trueBtn.disabled = false;
+//   falseBtn.disabled = false;
+//   restartBtn.style.display = 'none';
+//   buttonContainer.style.display = 'flex';
+// }
+
+// // Event Listeners
+// trueBtn.addEventListener('click', () => checkAnswer(true));
+// falseBtn.addEventListener('click', () => checkAnswer(false));
+// restartBtn.addEventListener('click', resetGame);
+
+// // Add custom CSS animation for confetti
+// const style = document.createElement('style');
+// style.textContent = `
+//       @keyframes fall {
+//           to {
+//               transform: translateY(100vh) rotate(360deg);
+//               opacity: 0;
+//           }
+//       }
+//   `;
+// document.head.appendChild(style);
