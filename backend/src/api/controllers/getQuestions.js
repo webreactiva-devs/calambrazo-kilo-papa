@@ -1,33 +1,23 @@
-const path = require('path');
-const fs = require('fs');
+const Question = require('../models/questions');
 
-const questionsFilePath = path.join(__dirname, '../../seed/questions.json');
-const data = fs.readFileSync(questionsFilePath, 'utf-8');
-const questions = JSON.parse(data);
-
-const getQuestions = () => {
+const getQuestions = async () => {
   try {
-    const questionsWithoutAnswers = questions.map(
-      ({ answer, ...rest }) => rest
-    );
+    const question = await Question.find({}, { correct: 0, __v: 0 });
 
-    return questionsWithoutAnswers;
+    return question.map((q) => {
+      const successRate =
+        q.statistics.totalAttempts > 0
+          ? (
+              (q.statistics.correctAttempts / q.statistics.totalAttempts) *
+              100
+            ).toFixed(2)
+          : 0;
+      return { ...q.toObject(), successRate: `${successRate}%` };
+    });
   } catch (error) {
     console.error('Error al leer el archivo de preguntas', error);
     throw new Error('No se ha podido obtener las preguntas');
   }
 };
 
-const validateAnswer = (questionId, userAnswer) => {
-  try {
-    const question = questions.find((q) => q.id === questionId);
-    if (!question) return false;
-
-    return question.answer === userAnswer;
-  } catch (error) {
-    console.error('Error al validar la respuesta', error);
-    throw new Error('No se ha podido validar la respuesta');
-  }
-};
-
-module.exports = { getQuestions, validateAnswer };
+module.exports = { getQuestions };

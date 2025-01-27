@@ -1,27 +1,62 @@
 [
   {
-    "id": 1,
-    "question": "El caballo blanco de Santiago es blanco",
-    "answer": true
+    "question": "¿Qué protocolo se utiliza para cargar sitios web de forma segura?",
+    "answers": ["HTTP", "HTTPS"],
+    "correct": "HTTPS",
+    "level": "basic"
   },
   {
-    "id": 2,
-    "question": "La capital de Francia es Normandía",
-    "answer": false
+    "question": "¿Qué lenguaje se usa para diseñar la estructura de una página web?",
+    "answers": ["HTML", "CSS"],
+    "correct": "HTML",
+    "level": "basic"
   },
   {
-    "id": 3,
-    "question": "El planeta más cercano al Sol es Plutón",
-    "answer": false
+    "question": "¿Cuál de estas opciones es una biblioteca de JavaScript?",
+    "answers": ["React", "Sass"],
+    "correct": "React",
+    "level": "intermediate"
   },
   {
-    "id": 4,
-    "question": "Siri es para Linux lo que Alexa para Apple",
-    "answer": false
+    "question": "¿Qué unidad es relativa al tamaño de la fuente del elemento padre?",
+    "answers": ["em", "px"],
+    "correct": "em",
+    "level": "intermediate"
   },
   {
-    "id": 5,
-    "question": "Sennheiser y Bose son marcas favoritas de Marta",
-    "answer": true
+    "question": "¿Qué método se utiliza para agregar un elemento al final de un array en JavaScript?",
+    "answers": ["push()", "pop()"],
+    "correct": "push()",
+    "level": "intermediate"
+  },
+  {
+    "question": "¿Qué etiqueta de HTML5 se usa para incrustar un video?",
+    "answers": ["<video>", "<iframe>"],
+    "correct": "<video>",
+    "level": "basic"
+  },
+  {
+    "question": "¿Qué significa la P en el modelo MVC?",
+    "answers": ["Presenter", "Pattern"],
+    "correct": "Presenter",
+    "level": "advanced"
+  },
+  {
+    "question": "¿Qué propiedad de CSS define el espacio entre las líneas de texto?",
+    "answers": ["line-height", "letter-spacing"],
+    "correct": "line-height",
+    "level": "intermediate"
+  },
+  {
+    "question": "¿Cuál es el formato más eficiente para imágenes que requieren fondo transparente?",
+    "answers": ["PNG", "JPEG"],
+    "correct": "PNG",
+    "level": "basic"
+  },
+  {
+    "question": "¿Cuál es una característica distintiva de WebSockets frente a HTTP?",
+    "answers": ["Conexión persistente", "Mayor seguridad"],
+    "correct": "Conexión persistente",
+    "level": "advanced"
   }
 ]

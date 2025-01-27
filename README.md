@@ -37,14 +37,7 @@ Robotito Mentiroso es un juego que presenta preguntas de verdadero o falso, obte
 ##API del backend
 
 1. Obtener preguntas
-   Ruta: GET /api/questions
+   Ruta: `GET /api/questions`
    Respuesta: Se obtiene una lista de preguntas sin las respuestas
 2. Validar respuesta
-   Ruta: POST /api/validate
-   Body: {
-   "questionId": 1,
-   "userAnswer": true
-   }
-   Respuesta: {
-   "correct": true
-   }
+   Ruta: `POST /api/validate`

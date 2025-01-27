@@ -1,17 +1,27 @@
 export const setUpButtons = (onAnswer) => {
-  const trueBtn = document.getElementById('true-btn');
-  const falseBtn = document.getElementById('false-btn');
+  const buttonsContainer = document.getElementById('button-container');
+  buttonsContainer.innerHTML = '';
 
-  trueBtn.addEventListener('click', () => onAnswer(true));
-  falseBtn.addEventListener('click', () => onAnswer(false));
+  return (options) => {
+    buttonsContainer.innerHTML = ``;
+    options.forEach((option) => {
+      const button = document.createElement('button');
+      button.textContent = option;
+      button.className = 'answer-btn';
+      button.addEventListener('click', () => onAnswer(option));
+      buttonsContainer.appendChild(button);
+    });
+  };
 };
 
 export const disableButtons = () => {
-  document.getElementById('true-btn').disabled = true;
-  document.getElementById('false-btn').disabled = true;
+  document.querySelectorAll('.answer-btn').forEach((btn) => {
+    btn.disabled = true;
+  });
 };
 
 export const enableButtons = () => {
-  document.getElementById('true-btn').disabled = false;
-  document.getElementById('false-btn').disabled = false;
+  document.querySelectorAll('.answer-btn').forEach((btn) => {
+    btn.disabled = false;
+  });
 };
