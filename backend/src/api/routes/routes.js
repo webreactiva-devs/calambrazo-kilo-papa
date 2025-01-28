@@ -16,8 +16,8 @@ questionsRoutes.post('/validate', async (req, res) => {
   const { questionId, userAnswer } = req.body;
 
   try {
-    const correctAnswer = await validateAnswer(questionId, userAnswer);
-    res.status(200).json({ correctAnswer });
+    const { correct } = await validateAnswer(questionId, userAnswer);
+    res.status(200).json({ correct });
   } catch (error) {
     res.status(500).json({ message: 'Error al validar la respuesta' });
   }

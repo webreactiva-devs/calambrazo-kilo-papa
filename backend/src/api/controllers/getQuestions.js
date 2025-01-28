@@ -12,7 +12,11 @@ const getQuestions = async () => {
               100
             ).toFixed(2)
           : 0;
-      return { ...q.toObject(), successRate: `${successRate}%` };
+      return {
+        ...q.toObject(),
+        successRate: `${successRate}%`,
+        level: q.level
+      };
     });
   } catch (error) {
     console.error('Error al leer el archivo de preguntas', error);

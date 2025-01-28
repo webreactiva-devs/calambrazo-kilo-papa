@@ -7,7 +7,7 @@ export const setUpButtons = (onAnswer) => {
     options.forEach((option) => {
       const button = document.createElement('button');
       button.textContent = option;
-      button.className = 'answer-btn';
+      button.classList.add('answer-btn', 'btn');
       button.addEventListener('click', () => onAnswer(option));
       buttonsContainer.appendChild(button);
     });
