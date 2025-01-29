@@ -11,7 +11,7 @@ Robotito Mentiroso es un juego que presenta preguntas con dos opciones de respue
 4. Inyectar datos en base de datos - npm run seed
 5. Iniciar frontend con Live Server (extensión de Visual Studio Code)
 
-Informe de preguntas + nivel + aciertos en la terminal - npm run report
+Desde terminal de Backend: Informe de preguntas + nivel + aciertos en la terminal - npm run report
 
 ##Estructura
 #Directorios y archivos principales
@@ -35,7 +35,7 @@ Informe de preguntas + nivel + aciertos en la terminal - npm run report
 
 ##Tecnologías utilizadas
 #Frontend - HTML5, CSS3, JAVASCRIPT
-#Backend - Node.js, Express, Mongoose
+#Backend - Node.js, Express, Mongoose y MongoDB
 #Otras herramientas - CORS (para habilitar comunicación entre frontend y backend)
 
 ##API del backend

@@ -10,11 +10,6 @@ export const statsAndLevel = (resultEl, successRate, level) => {
     level.charAt(0).toUpperCase() + level.slice(1)
   }`;
 
-  const existingStats = document.getElementsByClassName('stats');
-  const existingLevel = document.getElementsByClassName('level');
-  // if (existingStats) existingStats.remove();
-  // if (existingLevel) existingLevel.remove();
-
   resultEl.appendChild(statsEl);
   resultEl.appendChild(levelEl);
 };
