@@ -19,8 +19,7 @@ const seedQuestionsDB = async () => {
       ...q,
       statistics: {
         totalAttempts: 20,
-        correctAttempts: 0,
-        failedAttempts: 0
+        correctAttempts: 18
       }
     }));
     await Question.insertMany(questionsWithStats);

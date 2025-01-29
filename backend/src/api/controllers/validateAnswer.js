@@ -13,8 +13,6 @@ const validateAnswer = async (questionId, userAnswer) => {
     question.statistics.totalAttempts += 1;
     if (isCorrect) {
       question.statistics.correctAttempts += 1;
-    } else {
-      question.statistics.failedAttempts += 1;
     }
 
     await question.save();

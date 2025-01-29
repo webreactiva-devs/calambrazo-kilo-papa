@@ -12,8 +12,7 @@ const questionSchema = new mongoose.Schema(
     },
     statistics: {
       totalAttempts: { type: Number, default: 0 },
-      correctAttempts: { type: Number, default: 0 },
-      failedAttempts: { type: Number, default: 0 }
+      correctAttempts: { type: Number, default: 0 }
     }
   },
   {
