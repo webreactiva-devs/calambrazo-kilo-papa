@@ -8,6 +8,7 @@ import { createConfetti } from './Components/confetti.js';
 import { restartBtn, toggleRestartBtn } from './Components/restart.js';
 import { displayResult, clearResult } from './Components/result.js';
 import { fetchQuestions, validateAnswer } from './Service/Api.js';
+import { statsAndLevel } from './Components/statsAndLevel.js';
 
 export const initApp = () => {
   const questionEl = document.getElementById('question');
@@ -16,21 +17,13 @@ export const initApp = () => {
 
   let currentQuestion = null;
 
-  const loadQuestion = async () => {
-    try {
-      const questions = await fetchQuestions();
-      currentQuestion = questions[Math.floor(Math.random() * questions.length)];
-      questionText(questionEl, currentQuestion.question);
-    } catch (error) {
-      console.error(error);
-      questionText(questionEl, 'Error al cargar las preguntas');
-    }
-  };
-
   const handleAnswer = async (userAnswer) => {
     disableButtons();
     try {
-      const { correct } = await validateAnswer(currentQuestion.id, userAnswer);
+      const { correct } = await validateAnswer(
+        currentQuestion._id,
+        String(userAnswer)
+      );
       if (correct) {
         displayResult(resultEl, '¡Correcto!', 'green');
         createConfetti(confettiContainer);
@@ -44,6 +37,25 @@ export const initApp = () => {
     }
   };
 
+  const configBtn = setUpButtons(handleAnswer);
+
+  const loadQuestion = async () => {
+    try {
+      const questions = await fetchQuestions();
+      currentQuestion = questions[Math.floor(Math.random() * questions.length)];
+      questionText(questionEl, currentQuestion.question);
+      configBtn(currentQuestion.answers);
+      statsAndLevel(
+        resultEl,
+        currentQuestion.successRate,
+        currentQuestion.level
+      );
+    } catch (error) {
+      console.error(error);
+      questionText(questionEl, 'Error al cargar las preguntas');
+    }
+  };
+
   const resetGame = () => {
     clearResult(resultEl);
     enableButtons();
@@ -51,7 +63,6 @@ export const initApp = () => {
     loadQuestion();
   };
 
-  setUpButtons(handleAnswer);
   restartBtn(resetGame);
   loadQuestion();
 };

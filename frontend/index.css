@@ -24,7 +24,9 @@ body {
   color: #1e40af;
 }
 
-.question {
+.question,
+.stats,
+.level {
   font-size: 18px;
   margin-bottom: 20px;
   color: #4b5563;
@@ -52,6 +54,11 @@ body {
 
 .btn-false {
   background-color: #ef4444;
+  color: white;
+}
+
+.answer-btn {
+  background-color: #4b5563;
   color: white;
 }
 
