@@ -9,7 +9,7 @@ const validateAnswer = async (questionId, userAnswer) => {
       throw new Error('No se ha encontrado la pregunta');
     }
 
-    const isCorrect = question.correct.trim() === String(userAnswer).trim();
+    const isCorrect = question.correct === userAnswer;
     question.statistics.totalAttempts += 1;
     if (isCorrect) {
       question.statistics.correctAttempts += 1;
