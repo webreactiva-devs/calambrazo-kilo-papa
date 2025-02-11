@@ -1,3 +1,4 @@
+const { updateQuestionStats } = require('../../Services/updateQuestion');
 const Question = require('../models/questions');
 
 const validateAnswer = async (questionId, userAnswer) => {
@@ -10,13 +11,8 @@ const validateAnswer = async (questionId, userAnswer) => {
     }
 
     const isCorrect = question.correct === userAnswer;
-    question.statistics.totalAttempts += 1;
-    if (isCorrect) {
-      question.statistics.correctAttempts += 1;
-    }
 
-    await question.save();
-    console.log('después de guardar:', question.statistics);
+    await updateQuestionStats(questionId, isCorrect);
 
     return { correct: isCorrect };
   } catch (error) {

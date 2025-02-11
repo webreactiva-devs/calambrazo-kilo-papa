@@ -1,23 +1,15 @@
-const Question = require('../models/questions');
+const { calculateSuccessRate } = require('../../utils/calcSuccessRate');
+const { questionRepository } = require('../repositories/questionRepository');
 
 const getQuestions = async () => {
   try {
-    const question = await Question.find({}, { correct: 0, __v: 0 });
+    const question = await questionRepository.getAllQuestions();
 
-    return question.map((q) => {
-      const successRate =
-        q.statistics.totalAttempts > 0
-          ? (
-              (q.statistics.correctAttempts / q.statistics.totalAttempts) *
-              100
-            ).toFixed(2)
-          : 0;
-      return {
-        ...q.toObject(),
-        successRate: `${successRate}%`,
-        level: q.level
-      };
-    });
+    return question.map((q) => ({
+      ...q.toObject(),
+      successRate: calculateSuccessRate(q.statistics),
+      level: q.level
+    }));
   } catch (error) {
     console.error('Error al leer el archivo de preguntas', error);
     throw new Error('No se ha podido obtener las preguntas');
