@@ -1,3 +1,4 @@
+const { updateQuestionStats } = require('../../Services/updateQuestion');
 const Question = require('../models/questions');
 
 const validateAnswer = async (questionId, userAnswer) => {
@@ -9,14 +10,9 @@ const validateAnswer = async (questionId, userAnswer) => {
       throw new Error('No se ha encontrado la pregunta');
     }
 
-    const isCorrect = question.correct.trim() === String(userAnswer).trim();
-    question.statistics.totalAttempts += 1;
-    if (isCorrect) {
-      question.statistics.correctAttempts += 1;
-    }
+    const isCorrect = question.correct === userAnswer;
 
-    await question.save();
-    console.log('después de guardar:', question.statistics);
+    await updateQuestionStats(questionId, isCorrect);
 
     return { correct: isCorrect };
   } catch (error) {
