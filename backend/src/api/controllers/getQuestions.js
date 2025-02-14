@@ -1,5 +1,5 @@
-const { calculateSuccessRate } = require('../../utils/calcSuccessRate');
-const { questionRepository } = require('../repositories/questionRepository');
+const { calculateSuccessRate } = require('../../utils/calcSuccessRate.js');
+const { questionRepository } = require('../repositories/questionRepository.js');
 
 const getQuestions = async () => {
   try {

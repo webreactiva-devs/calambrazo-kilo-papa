@@ -1,5 +1,5 @@
-const { updateQuestionStats } = require('../../Services/updateQuestion');
-const Question = require('../models/questions');
+const { updateQuestionStats } = require('../../Services/updateQuestion.js');
+const Question = require('../models/questions.js');
 
 const validateAnswer = async (questionId, userAnswer) => {
   try {

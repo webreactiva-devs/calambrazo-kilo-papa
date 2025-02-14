@@ -1,15 +1,17 @@
-export const statsAndLevel = (resultEl, successRate, level) => {
-  const statsEl = document.createElement('p');
+export const statsAndLevel = (statsEl, successRate, level) => {
+  statsEl.innerHTML = '';
+
+  const stats = document.createElement('p');
   const levelEl = document.createElement('p');
 
-  statsEl.className = 'stats';
+  stats.className = 'stats';
   levelEl.className = 'level';
 
-  statsEl.textContent = `Histórico de aciertos: ${successRate}`;
+  stats.textContent = `Histórico de aciertos: ${successRate}`;
   levelEl.textContent = `Dificultad: ${
     level.charAt(0).toUpperCase() + level.slice(1)
   }`;
 
-  resultEl.appendChild(statsEl);
-  resultEl.appendChild(levelEl);
+  statsEl.appendChild(stats);
+  statsEl.appendChild(levelEl);
 };

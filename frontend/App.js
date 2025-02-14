@@ -1,68 +1,150 @@
-import { questionText } from './Components/question.js';
+import { setUpButtons } from './Components/buttons.js';
 import {
-  setUpButtons,
-  disableButtons,
-  enableButtons
-} from './Components/buttons.js';
-import { createConfetti } from './Components/confetti.js';
-import { restartBtn, toggleRestartBtn } from './Components/restart.js';
-import { displayResult, clearResult } from './Components/result.js';
-import { fetchQuestions, validateAnswer } from './Service/Api.js';
-import { statsAndLevel } from './Components/statsAndLevel.js';
+  nextQuestionBtn,
+  restartBtn,
+  toggleNextQuestionBtn,
+  toggleRestartBtn
+} from './Components/restart.js';
+import { nextQuestion } from './Game/nextQuestion.js';
+import { handleAnswer } from './Game/handleAnswer.js';
+import { startSession } from './Game/startSession.js';
 
 export const initApp = () => {
   const questionEl = document.getElementById('question');
   const resultEl = document.getElementById('result');
+  const feedbackEl = document.getElementById('feedback');
+  const statsEl = document.getElementById('stats');
   const confettiContainer = document.getElementById('confetti-container');
+  const startBtn = document.getElementById('start-btn');
 
   let currentQuestion = null;
+  let questionIndex = 0;
+  let sessionQuestions = [];
+  let userAnswers = [];
 
-  const handleAnswer = async (userAnswer) => {
-    disableButtons();
-    try {
-      const { correct } = await validateAnswer(
-        currentQuestion._id,
-        String(userAnswer)
-      );
-      if (correct) {
-        displayResult(resultEl, '¡Correcto!', 'green');
-        createConfetti(confettiContainer);
-      } else {
-        displayResult(resultEl, '¡Ups! Respuesta incorrecta', 'red');
-      }
-      toggleRestartBtn(true);
-    } catch (error) {
-      console.error(error);
-      displayResult(resultEl, 'Error al validar la respuesta.', 'red');
-    }
+  const setSessionQuestions = (questions) => {
+    sessionQuestions = questions;
+    console.log('Session Questions:', sessionQuestions);
+  };
+  const setQuestionIndex = (index) => {
+    questionIndex = index;
+    console.log('Question Index:', questionIndex);
   };
 
-  const configBtn = setUpButtons(handleAnswer);
-
-  const loadQuestion = async () => {
-    try {
-      const questions = await fetchQuestions();
-      currentQuestion = questions[Math.floor(Math.random() * questions.length)];
-      questionText(questionEl, currentQuestion.question);
-      configBtn(currentQuestion.answers);
-      statsAndLevel(
-        resultEl,
-        currentQuestion.successRate,
-        currentQuestion.level
-      );
-    } catch (error) {
-      console.error(error);
-      questionText(questionEl, 'Error al cargar las preguntas');
-    }
+  const setUserAnswers = (answers) => {
+    userAnswers = answers;
+    console.log('User Answers:', userAnswers); // Depuración
   };
 
-  const resetGame = () => {
-    clearResult(resultEl);
-    enableButtons();
+  const setCurrentQuestion = (question) => {
+    currentQuestion = question;
+    console.log('Current Question:', currentQuestion); // Depuración
+  };
+
+  const configBtn = setUpButtons((userAnswer) =>
+    handleAnswer(
+      userAnswer,
+      currentQuestion,
+      confettiContainer,
+      feedbackEl,
+      resultEl,
+      questionIndex,
+      sessionQuestions,
+      userAnswers,
+      setUserAnswers
+    )
+  );
+
+  startBtn.addEventListener('click', () => {
+    startSession(
+      questionEl,
+      statsEl,
+      feedbackEl,
+      configBtn,
+      setSessionQuestions,
+      setQuestionIndex,
+      setUserAnswers,
+      setCurrentQuestion
+    );
+    startBtn.style.display = 'none';
+  });
+
+  nextQuestionBtn(() =>
+    nextQuestion(
+      questionEl,
+      statsEl,
+      feedbackEl,
+      sessionQuestions,
+      questionIndex,
+      configBtn,
+      setQuestionIndex,
+      setCurrentQuestion
+    )
+  );
+
+  restartBtn(() => {
+    startSession(
+      questionEl,
+      statsEl,
+      feedbackEl,
+      configBtn,
+      setSessionQuestions,
+      setQuestionIndex,
+      setUserAnswers,
+      setCurrentQuestion
+    );
     toggleRestartBtn(false);
-    loadQuestion();
-  };
-
-  restartBtn(resetGame);
-  loadQuestion();
+    toggleNextQuestionBtn(false);
+    feedbackEl.textContent = '';
+    resultEl.textContent = '';
+  });
 };
+
+// export const initApp = () => {
+//   const questionEl = document.getElementById('question');
+//   const resultEl = document.getElementById('result');
+//   const confettiContainer = document.getElementById('confetti-container');
+
+//   let currentQuestion = null;
+//   let questionIndex = 0;
+//   let sessionQuestions = [];
+
+//   const setSessionQuestions = (questions) => (sessionQuestions = questions);
+//   const setQuestionIndex = (index) => (questionIndex = index);
+
+//   const configBtn = setUpButtons((userAnswer) =>
+//     handleAnswer(
+//       userAnswer,
+//       currentQuestion,
+//       confettiContainer,
+//       resultEl,
+//       questionIndex
+//     )
+//   );
+
+//   restartBtn(() =>
+//     startSession(
+//       questionEl,
+//       resultEl,
+//       configBtn,
+//       setSessionQuestions,
+//       setQuestionIndex
+//     )
+//   );
+//   nextQuestionBtn(() =>
+//     nextQuestion(
+//       questionEl,
+//       resultEl,
+//       sessionQuestions,
+//       questionIndex,
+//       configBtn
+//     )
+//   );
+//   startSession(
+//     questionEl,
+//     resultEl,
+//     configBtn,
+//     setSessionQuestions,
+//     setQuestionIndex
+//   );
+// };
