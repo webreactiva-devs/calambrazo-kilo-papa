@@ -21,14 +21,11 @@ export const handleAnswer = async (
 ) => {
   disableButtons();
   try {
-    // Validar la respuesta y actualizar el backend
     const { correct } = await validateAnswer(currentQuestion._id, userAnswer);
 
-    // Guardar la respuesta del usuario
     userAnswers.push({ questionId: currentQuestion._id, isCorrect: correct });
     setUserAnswers(userAnswers);
 
-    // Mostrar feedback al usuario
     if (correct) {
       displayResult(feedbackEl, '¡Correcto!', 'green');
       createConfetti(confettiContainer);
@@ -36,11 +33,9 @@ export const handleAnswer = async (
       displayResult(feedbackEl, '¡Ups! Respuesta incorrecta', 'red');
     }
 
-    // Mostrar el botón "Siguiente Pregunta" o "Jugar de Nuevo"
     if (questionIndex < sessionQuestions.length - 1) {
       toggleNextQuestionBtn(true);
     } else {
-      // Calcular y mostrar el porcentaje de aciertos total
       const successRate = showTotalSuccessRate(userAnswers, sessionQuestions);
       console.log('Porcentaje de aciertos total:', successRate);
       displayResult(
