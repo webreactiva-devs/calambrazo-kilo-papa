@@ -10,9 +10,6 @@ const expectedRates = configRates.expectedRates;
 const calcAccuracy = (level, successRate) => {
   const successRateNumber = parseFloat(successRate.replace('%', '').trim());
   const expectedRate = expectedRates[level.toLowerCase()] || 0;
-  console.log(
-    `Level: ${level}, SuccessRate: ${successRate}, ExpectedRate: ${expectedRate}`
-  );
   return successRateNumber >= expectedRate ? '✔' : '✘';
 };
 

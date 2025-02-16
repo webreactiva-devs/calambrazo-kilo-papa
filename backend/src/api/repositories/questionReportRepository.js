@@ -7,7 +7,6 @@ const questionReportRepository = {
 
     const questionsWithSuccessRate = questions.map((q) => {
       const successRate = calculateSuccessRate(q.statistics);
-      console.log(`Pregunta: ${q.question}, SuccessRate: ${successRate}`);
       return {
         ...q.toObject(),
         successRate
