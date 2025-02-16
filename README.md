@@ -1,47 +1,72 @@
 # calambrazo-kilo-papa
 
-##Descripción  
-Robotito Mentiroso es un juego que presenta preguntas con dos opciones de respuesta, obtenidas desde una base de datos en MongoDB. Las respuestas correctas se validan en el backend para evitar que puedan ser descubiertas fácilmente al inspeccionar el frontend. Este proyecto utiliza HTML, CSS y JavaScript en el frontend, y Node.js (Express y Mongoose) en el backend.
+##Descripción del Proyecto
+Este proyecto es una juego de preguntas y respuestas que permite a los usuarios iniciar una sesión de juego, responder a una serie de preguntas y visualizar sus estadísticas de éxito al final de la sesión. El sistema calcula el porcentaje de aciertos y permite reiniciar el juego para una nueva sesión. Asimismo, se pretende conocer si la IA acierta o no con el nivel de dificultad de las preguntas que ha generado.
 
-##Instalación y configuración
+##Configuración del Proyecto
 
-1. Clonar el respositorio - git clone https://github.com/webreactiva-devs/calambrazo-kilo-papa.git
-2. Instalar dependencias en backend - npm install
-3. Iniciar servidor en backend - node index.js (servidor iniciará en http://localhost:3000)
-4. Inyectar datos en base de datos - npm run seed
-5. Iniciar frontend con Live Server (extensión de Visual Studio Code)
+###Instalación
 
-Desde terminal de Backend: Informe de preguntas + nivel + aciertos en la terminal - npm run report
+1. Clonar el repositorio.
+   git clone <URL del repositorio>
 
-##Estructura
-#Directorios y archivos principales
+2. Instalar las dependencias.
+   npm install
 
-1. backend/: Contiene todo el código relacionado con el servidor.
+3. Configurar el archivo .env con las variables necesarias:
+   DB_URL=<URL de la base de datos MongoDB>
 
-   - src/api/controllers/getQuestions.js: Controlador para manejar las preguntas.
-   - src/api/models/questions.js: Esquema de Mongoose para almacenar los datos y tipos de datos
-   - src/api/routes/routes.js: Define las rutas de la API.
-   - src/seed/dbQuestions.js: Script que permite inyección de datos iniciales en base de datos.
-   - index.js: Archivo principal del backend, donde se inicializa el servidor.
+4. Inicializar la Base de Datos
+   El proyecto contiene un script para cargar preguntas de ejemplo en la base de datos. Ejecuta:
+   node src/seed/questionsSeed.js
 
-2. frontend/: Contiene todo el código del cliente.
+Ejecutar el Proyecto Localmente
+Acceder a http://localhost:3000 en el navegador o mediante Live Server (extensión de VSC) desde index.html
 
-   - Components/: Subcarpeta con componentes del frontend como gameLogic.js, buttons.js y result.js.
-   - index.html: Archivo principal del juego.
-   - index.css: Estilos del juego.
-   - main.js: Archivo principal donde se organiza e importa la lógica de los componentes.
+##Estructura del proyecto
+El proyecto está dividido en dos partes principales:
 
-3. .gitignore: Archivo para excluir node_modules y otros archivos no necesarios para el repositorio.
+1.  Backend
 
-##Tecnologías utilizadas
-#Frontend - HTML5, CSS3, JAVASCRIPT
-#Backend - Node.js, Express, Mongoose y MongoDB
-#Otras herramientas - CORS (para habilitar comunicación entre frontend y backend)
+    - src/config: Configuración de la conexión a la base de datos -> databaseConnect.js
 
-##API del backend
+    - src/api: Contiene controladores, modelos y repositorios.
 
-1. Obtener preguntas
-   Ruta: `GET /api/questions`
-   Respuesta: Se obtiene una lista de preguntas sin las respuestas
-2. Validar respuesta
-   Ruta: `POST /api/validate`
+    - src/scripts -> report.js: genera un informe en la terminal mostrando el nivel, el porcentaje de éxito y si se cumplió o no la tasa esperada
+
+    - src/services: Contiene lógica de negocio reutilizable -> updateQuestion.js: Servicio para actualizar preguntas.
+
+    - src/utils: Utilidades del proyecto.
+      calcSuccessRate.js: Calcula la tasa de éxito.
+      configRates.json: Configuración de las tasas esperadas por nivel.
+
+    - index.js: Punto de entrada del backend.
+
+2.  Frontend
+
+    - frontend/Components: Contiene los componentes visuales.
+      buttons.js, confetti.js, question.js, restart.js, result.js, statsAndLevel.js
+
+    - frontend/Game: Lógica de juego.
+      handleAnswer.js, loadNextQuestion.js, nextQuestion.js, showTotalSuccessRate.js, startSession.js
+
+    - frontend/Service: Servicios que manejan la comunicación con la API.
+      Api.js: Maneja las solicitudes al backend.
+
+    - index.html: Página principal de la aplicación.
+
+    - main.js: Punto de entrada del frontend.
+
+##Funcionalidades del Proyecto
+
+1.  Iniciar Sesión de Juego: Botón de inicio que da paso a las preguntas.
+2.  Responder Preguntas: Cada vez que el usuario responde, aparece el botón "Siguiente Pregunta".
+3.  Mostrar Resultados: En la última pregunta, se muestra el porcentaje de aciertos junto con la opción de reiniciar el juego.
+
+##Despliegue en Render
+
+- Crear una cuenta en Render.
+- Crear un nuevo servicio web.
+- Conectar el repositorio del proyecto.
+- Configurar las variables de entorno necesarias en Render (DB_URL).
+- Realizar el despliegue.
