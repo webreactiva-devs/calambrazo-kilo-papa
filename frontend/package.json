@@ -1,0 +1,16 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Frontend para el juego Calambrazo Kids",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve -s build",
+    "build": "npm run build"
+  },
+  "author": "Tu Nombre",
+  "license": "MIT",
+  "keywords": [],
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+}
