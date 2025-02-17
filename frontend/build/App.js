@@ -1,13 +1,13 @@
-import { setUpButtons } from './Components/buttons.js';
+import { setUpButtons } from '../Components/buttons.js';
 import {
   nextQuestionBtn,
   restartBtn,
   toggleNextQuestionBtn,
   toggleRestartBtn
-} from './Components/restart.js';
-import { nextQuestion } from './Game/nextQuestion.js';
-import { handleAnswer } from './Game/handleAnswer.js';
-import { startSession } from './Game/startSession.js';
+} from '../Components/restart.js';
+import { nextQuestion } from '../Game/nextQuestion.js';
+import { handleAnswer } from '../Game/handleAnswer.js';
+import { startSession } from '../Game/startSession.js';
 
 export const initApp = () => {
   const questionEl = document.getElementById('question');
