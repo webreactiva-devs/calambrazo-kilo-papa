@@ -1,14 +1,19 @@
 export const setUpButtons = (onAnswer) => {
   const buttonsContainer = document.getElementById('button-container');
-  buttonsContainer.innerHTML = '';
 
-  return (options) => {
+  return (answers) => {
+    console.log('Respuestas:', answers);
     buttonsContainer.innerHTML = ``;
-    options.forEach((option) => {
+    if (!answers || answers.lenght === 0) {
+      console.error('No existen respuestas para mostrar');
+      return;
+    }
+
+    answers.forEach((answer) => {
       const button = document.createElement('button');
-      button.textContent = option;
+      button.textContent = answer;
       button.classList.add('answer-btn', 'btn');
-      button.addEventListener('click', () => onAnswer(option));
+      button.addEventListener('click', () => onAnswer(answer));
       buttonsContainer.appendChild(button);
     });
   };

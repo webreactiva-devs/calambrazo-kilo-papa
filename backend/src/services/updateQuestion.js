@@ -1,4 +1,4 @@
-const Question = require('../api/models/questions');
+const Question = require('../api/models/questions.js');
 
 const updateQuestionStats = async (questionId, isCorrect) => {
   try {

@@ -1,17 +1,29 @@
 const mongoose = require('mongoose');
-const { getQuestions } = require('../api/controllers/getQuestions');
+const {
+  questionReportRepository
+} = require('../api/repositories/questionReportRepository');
+const configRates = require('../utils/configRates.json');
 require('dotenv').config();
+
+const expectedRates = configRates.expectedRates;
+
+const calcAccuracy = (level, successRate) => {
+  const successRateNumber = parseFloat(successRate.replace('%', '').trim());
+  const expectedRate = expectedRates[level.toLowerCase()] || 0;
+  return successRateNumber >= expectedRate ? '✔' : '✘';
+};
 
 const generateReport = async () => {
   mongoose.connect(process.env.DB_URL);
 
   try {
-    const question = await getQuestions();
+    const question = await questionReportRepository.getAllQuestionsWithStats();
     console.log('---Informe de preguntas---');
 
     question.forEach((q, index) => {
+      const accuracy = calcAccuracy(q.level, q.successRate);
       console.log(`${index + 1}. ${q.question}`);
-      console.log(`${q.level} | ${q.successRate}`);
+      console.log(`${q.level} | ${q.successRate} | ${accuracy}`);
       console.log('------------------------');
     });
   } catch (error) {
