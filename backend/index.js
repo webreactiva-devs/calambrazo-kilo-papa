@@ -2,6 +2,7 @@ const express = require('express');
 const questionsRoutes = require('./src/api/routes/routes');
 const cors = require('cors');
 const { connectDB } = require('./src/config/databaseConnect');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
